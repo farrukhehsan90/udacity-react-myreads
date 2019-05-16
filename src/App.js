@@ -28,26 +28,16 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     getAll().then(books => {
-      console.log(books);
       this.setState({ books,selectOptions:selectOptionsJson });
       this.categorizeBooks();
     });
-  }
-
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps);
-  }
-
-  componentDidUpdate(prevProps,prevState){
-    console.log('prevProps',prevProps);
-    console.log('prevState',prevState);
   }
 
   categorizeBooks = () => {
     const { initialCategories, books } = this.state;
 
     if(initialCategories){
-      console.log('pehla chala');
+      
     books.map(book => {
       return this.setState(prevState =>
         book.shelf === "currentlyReading"
@@ -67,7 +57,6 @@ class BooksApp extends React.Component {
     const wantToRead=[];
     const read=[];
 
-    console.log('dusra chala');
 
     getAll().then(books=>
       {
@@ -90,9 +79,6 @@ class BooksApp extends React.Component {
           return true;
         });
         
-        console.log('currentlyReading',currentlyReading);
-        console.log('wantToRead',wantToRead);
-        console.log('read',read);
        return this.setState({currentlyReading,read,wantToRead});
       });
   }
@@ -109,14 +95,12 @@ class BooksApp extends React.Component {
       case "select":
       return update(book,e.target.value)
       .then(res=>{
-        console.log('res',res)
         this.categorizeBooks();
       });
 
       case "text":
       return search(e.target.value)
         .then(filteredBooks=>{
-          console.log('filteredBooks',filteredBooks);
           this.setState({filteredBooks});
         });
 
