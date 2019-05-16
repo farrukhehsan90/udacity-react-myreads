@@ -8,7 +8,6 @@ class BookShelf extends Component {
     render() {
 
         const {
-            books,
             currentlyReading,
             wantToRead,
             read,
@@ -16,54 +15,14 @@ class BookShelf extends Component {
             onChange
           } = this.props;
       
-          let booksContent;
           let currentlyReadingContent;
           let wantToReadContent;
           let readContent;
       
-          if (books.length > 0) {
-            booksContent = books.map(book => (
-              <li>
-                <div className="book">
-                  <div className="book-top">
-                    <div
-                      className="book-cover"
-                      style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: `url("${book.imageLinks.thumbnail}")`
-                      }}
-                    />
-                    <div className="book-shelf-changer">
-                      <select>
-                        <option value="move" disabled>
-                          Move to...
-                        </option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="book-title">{book.title}</div>
-                  {book.authors ? (
-                    <div className="book-authors">
-                      {book.authors.map(author => (
-                        <div>{author}</div>
-                      ))}
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </li>
-            ));
-          }
-      
+          
           if (wantToRead.length > 0) {
             wantToReadContent = wantToRead.map(book => (
-              <li>
+              <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div
@@ -82,6 +41,7 @@ class BookShelf extends Component {
                       >
                         {selectOptions.map(option => (
                           <option
+                            key={option.value}
                             disabled={option.value === "moveTo"}
                             value={option.value}
                           >
@@ -95,7 +55,7 @@ class BookShelf extends Component {
                   {book.authors ? (
                     <div className="book-authors">
                       {book.authors.map(author => (
-                        <div>{author}</div>
+                        <div key={author}>{author}</div>
                       ))}
                     </div>
                   ) : (
@@ -107,7 +67,7 @@ class BookShelf extends Component {
           }
           if (read.length > 0) {
             readContent = read.map(book => (
-              <li>
+              <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div
@@ -126,6 +86,7 @@ class BookShelf extends Component {
                       >
                         {selectOptions.map(option => (
                           <option
+                          key={option.value}
                             disabled={option.value === "moveTo"}
                             value={option.value}
                           >
@@ -139,7 +100,7 @@ class BookShelf extends Component {
                   {book.authors ? (
                     <div className="book-authors">
                       {book.authors.map(author => (
-                        <div>{author}</div>
+                        <div key={author}>{author}</div>
                       ))}
                     </div>
                   ) : (
@@ -151,7 +112,7 @@ class BookShelf extends Component {
           }
           if (currentlyReading.length > 0) {
             currentlyReadingContent = currentlyReading.map(book => (
-              <li>
+              <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div
@@ -170,6 +131,7 @@ class BookShelf extends Component {
                       >
                         {selectOptions.map(option => (
                           <option
+                            key={option.value}
                             disabled={option.value === "moveTo"}
                             value={option.value}
                           >
@@ -183,7 +145,7 @@ class BookShelf extends Component {
                   {book.authors ? (
                     <div className="book-authors">
                       {book.authors.map(author => (
-                        <div>{author}</div>
+                        <div key={author}>{author}</div>
                       ))}
                     </div>
                   ) : (

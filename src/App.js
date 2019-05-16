@@ -44,12 +44,12 @@ class BooksApp extends React.Component {
   }
 
   categorizeBooks = () => {
-    const { initialCategories,currentlyReading, wantToRead, read, books } = this.state;
+    const { initialCategories, books } = this.state;
 
     if(initialCategories){
       console.log('pehla chala');
     books.map(book => {
-      this.setState(prevState =>
+      return this.setState(prevState =>
         book.shelf === "currentlyReading"
           ? { currentlyReading: [...prevState.currentlyReading, book] }
           : book.shelf === "wantToRead"
@@ -71,7 +71,7 @@ class BooksApp extends React.Component {
 
     getAll().then(books=>
       {
-        books.map(book => {
+       books.map(book => {
 
           if(book.shelf==='currentlyReading') 
           { 
@@ -86,18 +86,22 @@ class BooksApp extends React.Component {
             read.push(book);
             
           }
+
+          return true;
         });
         
         console.log('currentlyReading',currentlyReading);
         console.log('wantToRead',wantToRead);
         console.log('read',read);
-        this.setState({currentlyReading,read,wantToRead});
+       return this.setState({currentlyReading,read,wantToRead});
       });
   }
   };
 
   onChange=(e,book,type)=>{
   
+    const {books}=this.state;
+
     this.setState({[e.target.name]:e.target.value});
 
     switch(type){
@@ -114,7 +118,10 @@ class BooksApp extends React.Component {
         .then(filteredBooks=>{
           console.log('filteredBooks',filteredBooks);
           this.setState({filteredBooks});
-        })
+        });
+
+      default :
+        return;
     }
 
       
@@ -146,6 +153,9 @@ class BooksApp extends React.Component {
        {...props}/>}}/>
      <Route exact path="/search" render={(props)=>
        <SearchBooks
+        currentlyReading={currentlyReading}
+        wantToRead={wantToRead}
+        read={read}
         filteredBooks={filteredBooks}
         inputFieldText={text}
         onChange={this.onChange}

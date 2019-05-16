@@ -6,13 +6,13 @@ class SearchBooks extends Component {
      }
     render() {
 
-        const {filteredBooks,onChange,selectOptions,inputFieldText}=this.props;
+        const {filteredBooks,onChange,selectOptions,inputFieldText,currentlyReading,wantToRead,read}=this.props;
 
         let searchContent;
 
         if(filteredBooks.length>0){
             searchContent=filteredBooks.map(book=>
-                <li>
+                <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div
@@ -26,11 +26,14 @@ class SearchBooks extends Component {
                     <div className="book-shelf-changer">
                       <select
                       onChange={(e)=>onChange(e,book,"select")}
-                      value={book.shelf}
+                      value={(currentlyReading.filter(aBook=>aBook.id===book.id)).length>0?"currentlyReading":(
+                          (wantToRead.filter(aBook=>aBook.id===book.id)).length>0?"wantToRead":((read.filter(aBook=>aBook.id===book.id)).length>0?"read":"none")
+                      )}
                       name={book.id}
                       >
                         {selectOptions.map(option => (
                           <option
+                            key={option.value}
                             disabled={option.value === "moveTo"}
                             value={option.value}
                           >
@@ -44,7 +47,7 @@ class SearchBooks extends Component {
                   {book.authors ? (
                     <div className="book-authors">
                       {book.authors.map(author => (
-                        <div>{author}</div>
+                        <div key={author}>{author}</div>
                       ))}
                     </div>
                   ) : (

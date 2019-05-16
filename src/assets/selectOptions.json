@@ -14,5 +14,9 @@
       {
         "title": "Read",
         "value": "read"
+      },
+      {
+        "title": "None",
+        "value": "none"
       }
 ]
