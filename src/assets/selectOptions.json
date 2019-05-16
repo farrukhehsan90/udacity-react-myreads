@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Move to...",
+        "value": "moveTo"
+      },
+      {
+        "title": "Currently Reading",
+        "value": "currentlyReading"
+      },
+      {
+        "title": "Want To Read",
+        "value": "wantToRead"
+      },
+      {
+        "title": "Read",
+        "value": "read"
+      }
+]
